@@ -13,9 +13,10 @@ function NavBar() {
   const isAuthenticated = false;
 
   return (
-    <AppBar position="fixed">
-      <Toolbar className={classes.toolbar}>
-        {isMobile && (
+    <>
+      <AppBar position="fixed">
+        <Toolbar className={classes.toolbar}>
+          {isMobile && (
           <IconButton
             color="inherit"
             edge="start"
@@ -24,26 +25,39 @@ function NavBar() {
             className={classes.menuButton}
           ><Menu />
           </IconButton>
-        )}
-        <IconButton color="inherit" sx={{ ml: 1 }} onClick={() => {}}>
-          {theme.palette.mode === 'dark' ? <Brightness7 /> : <Brightness4 />}
-        </IconButton>
-        {!isMobile && 'Search...'}
-        <div>
-          { !isAuthenticated ? (
-            <Button color="inherit" onClick={() => {}}>
-              Login &nbsp; <AccountCircle />
-            </Button>
+          )}
+          <IconButton color="inherit" sx={{ ml: 1 }} onClick={() => {}}>
+            {theme.palette.mode === 'dark' ? <Brightness7 /> : <Brightness4 />}
+          </IconButton>
+          {!isMobile && 'Search...'}
+          <div>
+            { !isAuthenticated ? (
+              <Button color="inherit" onClick={() => {}}>
+                Login &nbsp; <AccountCircle />
+              </Button>
+            ) : (
+              <Button color="inherit" component={Link} to="/profile/123" className={classes.linkButton} onClick={() => {}}>
+                {!isMobile && <>My Movies &nbsp;</>}
+                <Avatar style={{ width: 30, height: 30 }} alt="Profile" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTlII_y0zqhooJ5MiL1Rhv5MdDBW4m1SsTSVg&usqp=CAU" />
+              </Button>
+            ) }
+          </div>
+          {isMobile && 'Search...'}
+        </Toolbar>
+      </AppBar>
+      <div>
+        <nav className={classes.drawer}>
+          {isMobile ? (
+            <Drawer
+              variant="temporary"
+              anchor="right"
+            />
           ) : (
-            <Button color="inherit" component={Link} to="/profile/123" className={classes.linkButton} onClick={() => {}}>
-              {!isMobile && <>My Movies &nbsp;</>}
-              <Avatar style={{ width: 30, height: 30 }} alt="Profile" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTlII_y0zqhooJ5MiL1Rhv5MdDBW4m1SsTSVg&usqp=CAU" />
-            </Button>
-          ) }
-        </div>
-        {isMobile && 'Search...'}
-      </Toolbar>
-    </AppBar>
+            <Drawer />
+          )}
+        </nav>
+      </div>
+    </>
   );
 }
 
